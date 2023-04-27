@@ -21,16 +21,15 @@ public class UserEntity implements Serializable {
 	private String firstName;
 	@Column(nullable = false, length=50)
 	private String lastName;
-	@Column(nullable = false, length=100)
+	@Column(nullable = false, length=100, unique = true)
 	private String email;
 	@Column(nullable = false)
 	private String encryptedPassword;
 	private String emailVerificationToken;
-	@Column(nullable = false, columnDefinition = "boolean default false")
-	private Boolean emailVerificationStatus;
+	@Column(columnDefinition = "boolean default false")
+	private Boolean emailVerificationStatus=false;
 	public UserEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public UserEntity(long id, String userId, String firstName, String lastName, String email, String encryptedPassword,
 			String emailVerificationToken, Boolean emailVerificationStatus) {

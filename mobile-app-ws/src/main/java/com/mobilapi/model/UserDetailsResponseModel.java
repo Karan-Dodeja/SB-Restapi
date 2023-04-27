@@ -3,7 +3,7 @@ package com.mobilapi.model;
 public class UserDetailsResponseModel {
 	private String userId;
 	private String firstName;
-	private String lastname;
+	private String lastName;
 	private String email;
 	public String getUserId() {
 		return userId;
@@ -17,11 +17,11 @@ public class UserDetailsResponseModel {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastname) {
+		this.lastName = lastname;
 	}
 	public String getEmail() {
 		return email;
@@ -37,7 +37,7 @@ public class UserDetailsResponseModel {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
-		this.lastname = lastname;
+		this.lastName = lastname;
 		this.email = email;
 	}
 }
