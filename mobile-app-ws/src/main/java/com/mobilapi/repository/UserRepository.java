@@ -6,5 +6,6 @@ import com.mobilapi.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
-	// UserEntity findUserByEmai(String email);
+	UserEntity findUserByEmai(String email);
+	
 }
