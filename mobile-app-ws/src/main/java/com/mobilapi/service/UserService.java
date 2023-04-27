@@ -1,7 +1,9 @@
 package com.mobilapi.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import com.mobilapi.dto.UserDto;
 
-public interface UserService  {
+public interface UserService extends UserDetailsService {
 	UserDto createUser(UserDto userDto);
 }
