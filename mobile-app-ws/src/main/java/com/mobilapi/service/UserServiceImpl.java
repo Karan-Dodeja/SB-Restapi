@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 import com.mobilapi.dto.UserDto;
 import com.mobilapi.entity.UserEntity;
 import com.mobilapi.repository.UserRepository;
+import com.mobilapi.shared.Utils;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private Utils util;
 	
 	@Override
 	public UserDto createUser(UserDto user) {
@@ -24,7 +28,9 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = new UserEntity();
 		BeanUtils.copyProperties(user, userEntity);
 
-		userEntity.setUserId("testUserId");
+		String publicUserId = util.generateUserId(30);
+		
+		userEntity.setUserId(publicUserId);
 		userEntity.setEncryptedPassword("test");
 		
 		UserEntity storedUserdetails = userRepo.save(userEntity);
