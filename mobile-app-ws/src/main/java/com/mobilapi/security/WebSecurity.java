@@ -35,6 +35,8 @@ public class WebSecurity extends WebSecurityConfiguration {
 		
 		AuthenticationManager authenticationManager = authnticationmanagerBuilder.build(); 
 		
+		AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager);
+		authenticationFilter.setFilterProcessesUrl("/users/login");
 		
 		http
 		.cors().and()
