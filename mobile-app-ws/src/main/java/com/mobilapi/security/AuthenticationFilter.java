@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mobilapi.SpringApplicationContext;
+import com.mobilapi.dto.UserDto;
 import com.mobilapi.model.UserLoginRequestModel;
 
 import io.jsonwebtoken.Jwts;
@@ -25,6 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.SecretKey;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
 	public AuthenticationFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
 	}
@@ -58,7 +61,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 							Date.from(now.plusMillis(SecurityConstants.EXPIRATION_TIME))
 							)
 				.setIssuedAt(Date.from(now)).signWith(secretkey, SignatureAlgorithm.HS512).compact();
-						
+		
+	//	UserService userService= (UserService)SpringApplicationContext.getbean("userServiceImpl");
+		
 				res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+		// 		res.addHeader("UserId", UserDto.getUserId());
 	}
 }
