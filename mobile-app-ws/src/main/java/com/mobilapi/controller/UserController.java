@@ -28,7 +28,7 @@ public class UserController {
 	public UserDetailsResponseModel getUser(@PathVariable String id) {
 		UserDetailsResponseModel returnValue = new UserDetailsResponseModel();
 		
-		UserDto userDto = userService.getUserById(id);
+		UserDto userDto = userService.getUserByUserId(id);
 		BeanUtils.copyProperties(userDto, returnValue);
 		
 		return returnValue;
