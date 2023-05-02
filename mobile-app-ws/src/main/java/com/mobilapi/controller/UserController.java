@@ -3,6 +3,7 @@ package com.mobilapi.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,17 +25,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public UserDetailsResponseModel getUser(@PathVariable String id) {
 		UserDetailsResponseModel returnValue = new UserDetailsResponseModel();
-		
 		UserDto userDto = userService.getUserByUserId(id);
 		BeanUtils.copyProperties(userDto, returnValue);
-		
 		return returnValue;
 	}
 	
-	@PostMapping()
+	@PostMapping(consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE} ,produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public UserDetailsResponseModel createUser(@RequestBody UserDetailsRequestModel userDetails) {
 		UserDetailsResponseModel returnValue = new UserDetailsResponseModel();
 		UserDto userDto = new UserDto();
