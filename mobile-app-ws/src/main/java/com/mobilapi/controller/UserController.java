@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mobilapi.dto.UserDto;
+import com.mobilapi.exception.UserServiceException;
+import com.mobilapi.model.ErrorMessages;
 import com.mobilapi.model.UserDetailsRequestModel;
 import com.mobilapi.model.UserDetailsResponseModel;
 import com.mobilapi.service.UserService;
@@ -34,8 +36,13 @@ public class UserController {
 	}
 	
 	@PostMapping(consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE} ,produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public UserDetailsResponseModel createUser(@RequestBody UserDetailsRequestModel userDetails) {
+	public UserDetailsResponseModel createUser(@RequestBody UserDetailsRequestModel userDetails) throws Exception {
 		UserDetailsResponseModel returnValue = new UserDetailsResponseModel();
+		
+		// if(userDetails.getFirstName().isEmpty()) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+		// if(userDetails.getFirstName().isEmpty()) throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+		if(userDetails.getFirstName().isEmpty()) throw new NullPointerException("The Object Is Null");
+		
 		UserDto userDto = new UserDto();
 		BeanUtils.copyProperties(userDetails, userDto);
 		UserDto createdUser = userService.createUser(userDto);
