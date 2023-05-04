@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.mobilapi.dto.UserDto;
 import com.mobilapi.entity.UserEntity;
+import com.mobilapi.exception.UserServiceException;
+import com.mobilapi.model.ErrorMessage;
+import com.mobilapi.model.ErrorMessages;
 import com.mobilapi.repository.UserRepository;
 import com.mobilapi.shared.Utils;
 
@@ -77,6 +80,24 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = userRepo.findByUserId(userId);
 		if(userEntity == null) throw new UsernameNotFoundException(userId);
 		BeanUtils.copyProperties(userEntity, returnvalue);
+		return returnvalue;
+	}
+
+	@Override
+	public UserDto updateUser(String userId, UserDto user) {
+		UserDto returnvalue = new UserDto();
+		UserEntity userEntity = userRepo.findByUserId(userId);
+		
+		if(userEntity == null) 
+			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		
+		userEntity.setFirstName(user.getFirstName());
+		userEntity.setFirstName(user.getLastName());
+		
+		UserEntity updatedUserDetails = userRepo.save(userEntity);
+		
+		BeanUtils.copyProperties(updatedUserDetails, returnvalue);
+		
 		return returnvalue;
 	}
 
