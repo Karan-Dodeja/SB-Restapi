@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mobilapi.dto.UserDto;
 import com.mobilapi.exception.UserServiceException;
 import com.mobilapi.model.ErrorMessages;
+import com.mobilapi.model.OperationStatus;
+import com.mobilapi.model.RequestOperationName;
+import com.mobilapi.model.RequestOperationStatus;
 import com.mobilapi.model.UserDetailsRequestModel;
 import com.mobilapi.model.UserDetailsResponseModel;
 import com.mobilapi.service.UserService;
@@ -65,9 +68,12 @@ public class UserController {
 		return returnValue;
 	}
 	
-	@DeleteMapping
-	public String deleteUser() {
-		return "delete user";
+	@DeleteMapping(path= "/{id}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public OperationStatus deleteUser(@PathVariable String id) {
+		OperationStatus returnValue = new OperationStatus();
+		returnValue.setOperationName(RequestOperationName.DELETE.name());
+		returnValue.setOperationName(RequestOperationStatus.SUCCESS.name());
+		return returnValue;
 	}
 	
 }
