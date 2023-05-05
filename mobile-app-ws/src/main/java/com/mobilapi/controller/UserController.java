@@ -86,7 +86,7 @@ public class UserController {
 			@RequestParam(value = "limit", defaultValue = "25") int limit) {
 		List<UserDetailsResponseModel> returnValue = new ArrayList<>();
 		List<UserDto> users= userService.getUsers(page, limit);
-		
+		// Pagination and Limit, Limit can be any depends upon api call
 		for(UserDto userDto : users) {
 			UserDetailsResponseModel userModel = new UserDetailsResponseModel();
 			BeanUtils.copyProperties(userDto, userModel);
