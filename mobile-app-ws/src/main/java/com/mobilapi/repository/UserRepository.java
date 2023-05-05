@@ -9,5 +9,7 @@ import com.mobilapi.entity.UserEntity;
 public interface UserRepository extends PagingAndSortingRepository<UserEntity, Long> {
 	UserEntity findUserByEmail(String email);
 	UserEntity findByUserId(String userId);
+	void delete(UserEntity userEntity);
+	UserEntity save(UserEntity userEntity);
 	
 }

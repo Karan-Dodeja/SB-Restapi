@@ -85,7 +85,7 @@ public class UserController {
 	public List<UserDetailsResponseModel> getUsers(@RequestParam(value = "page", defaultValue = "1") int page, 
 			@RequestParam(value = "limit", defaultValue = "25") int limit) {
 		List<UserDetailsResponseModel> returnValue = new ArrayList<>();
-		List<UserDto> users= userService.getUser(page, limit);
+		List<UserDto> users= userService.getUsers(page, limit);
 		
 		for(UserDto userDto : users) {
 			UserDetailsResponseModel userModel = new UserDetailsResponseModel();
