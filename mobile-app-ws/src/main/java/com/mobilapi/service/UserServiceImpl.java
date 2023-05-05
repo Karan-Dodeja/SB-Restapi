@@ -32,9 +32,6 @@ public class UserServiceImpl implements UserService {
 	private Utils util;
 	
 	@Autowired
-	private UserEntity userEntity;
-
-	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
