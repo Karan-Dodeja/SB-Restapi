@@ -72,6 +72,7 @@ public class UserController {
 	public OperationStatus deleteUser(@PathVariable String id) {
 		OperationStatus returnValue = new OperationStatus();
 		returnValue.setOperationName(RequestOperationName.DELETE.name());
+		userService.deletUser(id);
 		returnValue.setOperationName(RequestOperationStatus.SUCCESS.name());
 		return returnValue;
 	}
