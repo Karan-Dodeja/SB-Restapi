@@ -1,5 +1,8 @@
 package com.mobilapi.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mobilapi.dto.UserDto;
@@ -74,6 +78,21 @@ public class UserController {
 		returnValue.setOperationName(RequestOperationName.DELETE.name());
 		userService.deletUser(id);
 		returnValue.setOperationName(RequestOperationStatus.SUCCESS.name());
+		return returnValue;
+	}
+	
+	@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public List<UserDetailsResponseModel> getUsers(@RequestParam(value = "page", defaultValue = "1") int page, 
+			@RequestParam(value = "limit", defaultValue = "25") int limit) {
+		List<UserDetailsResponseModel> returnValue = new ArrayList<>();
+		List<UserDto> users= userService.getUser(page, limit);
+		
+		for(UserDto userDto : users) {
+			UserDetailsResponseModel userModel = new UserDetailsResponseModel();
+			BeanUtils.copyProperties(userDto, userModel);
+			returnValue.add(userModel);
+		}
+		
 		return returnValue;
 	}
 	
